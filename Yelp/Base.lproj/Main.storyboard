@@ -25,6 +25,11 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="180" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SXy-9l-KPP">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableFooterView" contentMode="redraw" id="i85-Y5-34B">
+                                    <rect key="frame" x="0.0" y="208" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BusinessCell" rowHeight="180" id="SXs-Pl-eDZ" customClass="BusinessCell" customModule="Yelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="180"/>
@@ -135,6 +140,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Yelp" id="9Sz-7x-1iz"/>
                     <connections>
+                        <outlet property="searchBar" destination="i85-Y5-34B" id="BWn-VI-hwc"/>
                         <outlet property="tableView" destination="SXy-9l-KPP" id="jwT-tq-haO"/>
                     </connections>
                 </viewController>

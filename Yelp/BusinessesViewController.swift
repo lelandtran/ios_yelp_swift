@@ -8,12 +8,14 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate
 {
     
     @IBOutlet weak var tableView: UITableView!
+    
     @IBOutlet weak var searchBar: UISearchBar!
     
+//    weak var searchBar: UISearchBar!
     var businesses: [Business]!
     var filteredData: [Business]!
     
@@ -25,9 +27,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         
-        filteredData = businesses
-        searchBar = UISearchBar()
+        
+//        searchBar = UISearchBar()
         searchBar.sizeToFit()
+        searchBar.delegate = self
         
         navigationItem.titleView = searchBar
         
@@ -40,10 +43,12 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
                     print(business.name!)
                     print(business.address!)
                 }
+                self.filteredData = businesses
             }
             
             }
         )
+        
         
         /* Example of Yelp search with more search options specified
          Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -80,8 +85,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath as IndexPath) as! BusinessCell
         
-        cell.business = businesses[indexPath.row]
-//        cell.business = filteredData[indexPath.row]
+//        cell.business = businesses[indexPath.row]
+        cell.business = filteredData[indexPath.row]
         
         return cell
     }
