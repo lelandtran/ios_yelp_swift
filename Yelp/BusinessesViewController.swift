@@ -13,10 +13,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var searchBar: UISearchBar!
+//    @IBOutlet weak var searchBar: UISearchBar!
     
     
-//    weak var searchBar: UISearchBar!
+    weak var searchBar: UISearchBar!
     var businesses: [Business]!
     var filteredData: [Business]!
     
@@ -29,8 +29,9 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         tableView.estimatedRowHeight = 100
         
         
-//        searchBar = UISearchBar()
-        searchBar.sizeToFit()
+        searchBar = UISearchBar()
+        print("searchBar: \(searchBar)") // prints "searchBar: nil"
+        searchBar.sizeToFit() // fails here
         searchBar.delegate = self
         
         navigationItem.titleView = searchBar
