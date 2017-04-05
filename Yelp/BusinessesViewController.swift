@@ -13,10 +13,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var tableView: UITableView!
     
-//    @IBOutlet weak var searchBar: UISearchBar!
     
-    
-    weak var searchBar: UISearchBar!
+    var searchBar: UISearchBar!
     var businesses: [Business]!
     var filteredData: [Business]!
     
@@ -30,8 +28,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         
         
         searchBar = UISearchBar()
-        print("searchBar: \(searchBar)") // prints "searchBar: nil"
-        searchBar.sizeToFit() // fails here
+        print("searchBar: \(searchBar)") // prints out searchBar memory address and other info
+        searchBar.sizeToFit() // does not fail
         searchBar.delegate = self
         
         navigationItem.titleView = searchBar
