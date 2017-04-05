@@ -8,6 +8,10 @@
 
 import UIKit
 
+@objc protocol FiltersViewControllerDelegate {
+    @objc optional func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject])
+}
+
 class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate {
     
 
@@ -15,8 +19,10 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var searchButton: UIBarButtonItem!
     @IBOutlet weak var onCancelButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    weak var delegate: FiltersViewControllerDelegate?
     
     var categories: [[String:String]]!
+    var switchStates = [Int:Bool]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +49,19 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 
     @IBAction func onSearchButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+        var filters = [String:AnyObject]()
+        
+        var selectedCategories = [String]()
+        for (row,isSelected) in switchStates {
+            if isSelected {
+                selectedCategories.append(categories[row]["code"]!)
+            }
+        }
+        if selectedCategories.count > 0 {
+            filters["categories"] = selectedCategories as AnyObject?
+        }
+        
+        delegate?.filtersViewController?(filtersViewController: self, didUpdateFilters: filters)
 
     }
     
@@ -55,13 +74,15 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath as IndexPath) as! SwitchCell
         cell.switchLabel.text = categories[indexPath.row]["name"]
         cell.delegate = self
+        cell.onSwitch.isOn = switchStates[indexPath.row] ?? false
         return cell
         
     }
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPath(for: switchCell)!
-        print("filters view controller got the switch event")
+        
+        switchStates[indexPath.row] = value
     }
     
     func yelpCategories() -> [[String:String]] {
@@ -280,14 +301,18 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
 
 }
