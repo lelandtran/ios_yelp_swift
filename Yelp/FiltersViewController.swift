@@ -12,6 +12,7 @@ import UIKit
     @objc optional func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject])
 }
 
+
 class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate {
     
 
@@ -21,6 +22,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var tableView: UITableView!
     weak var delegate: FiltersViewControllerDelegate?
     
+    var sections: [(String,[AnyObject])]!
     var categories: [[String:String]]!
     var switchStates = [Int:Bool]()
     
@@ -30,7 +32,14 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.delegate = self
         tableView.dataSource = self
 
+        sections = [(String,[AnyObject])]()
         categories = yelpCategories()
+        let sortTypes = ["Best Matched","Distance","Highest Rated"]
+        let distances = [0.3, 1, 5, 10, 20]
+        sections.append(("Sort",sortTypes as [AnyObject]))
+        sections.append(("Distances",distances as [AnyObject]))
+        sections.append(("Deals",[] as [AnyObject]))
+        sections.append(("Categories",categories as [AnyObject]))
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -61,18 +70,47 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             filters["categories"] = selectedCategories as AnyObject?
         }
         
+//        var selectedSort = String()
+        
+        
         delegate?.filtersViewController?(filtersViewController: self, didUpdateFilters: filters)
 
     }
     
-    @available(iOS 2.0, *)
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        print("number of sections: \(sections.count)")
+        return sections.count
+    }
+    
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        print("name of section: \(sections[section].0)")
+        return sections[section].0
+    }
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        print("number of rows in section: [\(sections[section].1.count)]")
+        return sections[section].1.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath as IndexPath) as! SwitchCell
-        cell.switchLabel.text = categories[indexPath.row]["name"]
+        
+        print("indexPath section: \(indexPath.section)")
+        
+        let sectionIndex = indexPath.section
+        let sectionHeader = sections[sectionIndex].0
+        
+        switch sectionHeader {
+        case "Categories":
+            cell.switchLabel.text = categories[indexPath.row]["name"]
+        case "Sort":
+            print(indexPath.row)
+            print(sections[sectionIndex].1[indexPath.row])
+            cell.switchLabel.text = sections[sectionIndex].1[indexPath.row] as? String
+        default: break
+        }
+        
+        
         cell.delegate = self
         cell.onSwitch.isOn = switchStates[indexPath.row] ?? false
         return cell
@@ -84,6 +122,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         switchStates[indexPath.row] = value
     }
+    
     
     func yelpCategories() -> [[String:String]] {
         return [["name" : "Afghan", "code": "afghani"],
