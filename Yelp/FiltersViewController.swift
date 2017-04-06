@@ -38,7 +38,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         let distances = [0.3, 1, 5, 10, 20]
         sections.append(("Sort",sortTypes as [AnyObject]))
         sections.append(("Distances",distances as [AnyObject]))
-        sections.append(("Deals",[] as [AnyObject]))
+        sections.append(("Deals",["Deals" as AnyObject]))
         sections.append(("Categories",categories as [AnyObject]))
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -103,10 +103,19 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         switch sectionHeader {
         case "Categories":
             cell.switchLabel.text = categories[indexPath.row]["name"]
+            break
         case "Sort":
-            print(indexPath.row)
-            print(sections[sectionIndex].1[indexPath.row])
+            print("indexPath.row: \(indexPath.row)")
+            print("sections[\(sectionIndex)].1[\(indexPath.row)]: \(sections[sectionIndex].1[indexPath.row])")
             cell.switchLabel.text = sections[sectionIndex].1[indexPath.row] as? String
+            break
+        case "Distances":
+            print("sections[\(sectionIndex)].1: \(sections[sectionIndex].1)")
+            print("sections[\(sectionIndex)].1[\(indexPath.row)]: \(sections[sectionIndex].1[indexPath.row])")
+            cell.switchLabel.text = "\(sections[sectionIndex].1[indexPath.row])"
+            break
+        case "Deals":
+            cell.switchLabel.text = "Deals"
         default: break
         }
         
