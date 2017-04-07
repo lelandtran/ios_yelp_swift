@@ -77,6 +77,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             filters["categories"] = selectedCategories as AnyObject?
         }
         filters["deals"] = dealsIsOn as AnyObject?
+        filters["distance"] = selectedDistance as AnyObject?
         
         delegate?.filtersViewController?(filtersViewController: self, didUpdateFilters: filters)
 
@@ -119,16 +120,30 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             return cell
         case 1: // Distance
             let cell = tableView.dequeueReusableCell(withIdentifier: "MiscCell", for: indexPath as IndexPath) as! MiscCell
-            if let label = sections[sectionIndex].1[indexPath.row] as? Double {
-                cell.label.text = "\(label) mi"
-            }
-            else {
-                cell.label.text = "Auto"
+            if !showAllDistances {
+                if selectedDistance == nil {
+                    cell.label.text = "Auto"
+                } else {
+                    let selectedDistanceStr = "\(selectedDistance!) mi" as String
+                    cell.label.text = selectedDistanceStr
+                }
+            } else {
+                if let label = sections[sectionIndex].1[indexPath.row] as? Double {
+                    cell.label.text = "\(label) mi"
+                }
+                else {
+                    cell.label.text = "Auto"
+                }
             }
             return cell
         case 2: // Sort
             let cell = tableView.dequeueReusableCell(withIdentifier: "MiscCell", for: indexPath as IndexPath) as! MiscCell
-            cell.label.text = sections[sectionIndex].1[indexPath.row] as? String
+            if !showAllSorts {
+                let selectedSortStr = "\(sections[indexPath.section].1[selectedSort.hashValue])"
+                cell.label.text = selectedSortStr
+            } else {
+                cell.label.text = sections[sectionIndex].1[indexPath.row] as? String
+            }
             return cell
         case 3: // Categories
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath as IndexPath) as! SwitchCell
@@ -145,11 +160,17 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             print("showAllDistances: \(showAllDistances)")
+            selectedDistance = sections[indexPath.section].1[indexPath.row] as? Double
             showAllDistances = !showAllDistances
             tableView.reloadData()
         }
-        else {
+        else if indexPath.section == 2 {
             print("showAllSorts: \(showAllSorts)")
+            if let sortMode = YelpSortMode(rawValue: indexPath.row) {
+                selectedSort = sortMode
+            } else {
+                selectedSort = YelpSortMode.bestMatched
+            }
             showAllSorts = !showAllSorts
             tableView.reloadData()
         }
