@@ -35,7 +35,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         sections = [(String,[AnyObject])]()
         categories = yelpCategories()
         let sortTypes = ["Best Matched","Distance","Highest Rated"]
-        let distances = [0.3, 1, 5, 10, 20]
+        let distances = [nil, 0.3, 1, 5, 10, 20]
         sections.append(("Sort",sortTypes as [AnyObject]))
         sections.append(("Distances",distances as [AnyObject]))
         sections.append(("Deals",["Deals" as AnyObject]))
@@ -112,7 +112,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         case "Distances":
             print("sections[\(sectionIndex)].1: \(sections[sectionIndex].1)")
             print("sections[\(sectionIndex)].1[\(indexPath.row)]: \(sections[sectionIndex].1[indexPath.row])")
-            cell.switchLabel.text = "\(sections[sectionIndex].1[indexPath.row])"
+            if let label = sections[sectionIndex].1[indexPath.row] as? Double {
+                cell.switchLabel.text = "\(label) mi"
+            }
+            else {
+                cell.switchLabel.text = "Auto"
+            }
             break
         case "Deals":
             cell.switchLabel.text = "Deals"
