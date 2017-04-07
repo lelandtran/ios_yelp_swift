@@ -20,6 +20,7 @@
 		CB0901A31E93F4F7008EF3B8 /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0901A21E93F4F7008EF3B8 /* BusinessCell.swift */; };
 		CB6C66E81E9459A600A1283B /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C66E71E9459A600A1283B /* SwitchCell.swift */; };
 		CB6C66EA1E945D1500A1283B /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C66E91E945D1500A1283B /* FiltersViewController.swift */; };
+		CB70E3CC1E9741CD00BA6E2D /* MiscCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB70E3CB1E9741CD00BA6E2D /* MiscCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		CB0901A21E93F4F7008EF3B8 /* BusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessCell.swift; sourceTree = "<group>"; };
 		CB6C66E71E9459A600A1283B /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		CB6C66E91E945D1500A1283B /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
+		CB70E3CB1E9741CD00BA6E2D /* MiscCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiscCell.swift; sourceTree = "<group>"; };
 		EF53DC2D7A8303A68532E7C6 /* Pods-Yelp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yelp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Yelp/Pods-Yelp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,6 +180,7 @@
 			children = (
 				CB0901A21E93F4F7008EF3B8 /* BusinessCell.swift */,
 				CB6C66E71E9459A600A1283B /* SwitchCell.swift */,
+				CB70E3CB1E9741CD00BA6E2D /* MiscCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				CB6C66EA1E945D1500A1283B /* FiltersViewController.swift in Sources */,
 				22AAAA991AEA0A9700A544AF /* Business.swift in Sources */,
 				222D8A7D19CCFAE000D2DB53 /* YelpClient.swift in Sources */,
+				CB70E3CC1E9741CD00BA6E2D /* MiscCell.swift in Sources */,
 				222D8A5B19CCF9F900D2DB53 /* AppDelegate.swift in Sources */,
 				CB6C66E81E9459A600A1283B /* SwitchCell.swift in Sources */,
 			);

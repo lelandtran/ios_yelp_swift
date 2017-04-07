@@ -25,6 +25,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var sections: [(String,[AnyObject])]!
     var categories: [[String:String]]!
     var switchStates = [Int:Bool]()
+    var dealsIsOn = false
+    var selectedDistance : Double?
+    var selectedSort = YelpSortMode.bestMatched
+    
+//    var dealsIsOn : Bool
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +42,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         categories = yelpCategories()
         let sortTypes = ["Best Matched","Distance","Highest Rated"]
         let distances = [nil, 0.3, 1, 5, 10, 20]
-        sections.append(("Sort",sortTypes as [AnyObject]))
-        sections.append(("Distances",distances as [AnyObject]))
         sections.append(("Deals",["Deals" as AnyObject]))
+        sections.append(("Distances",distances as [AnyObject]))
+        sections.append(("Sort By",sortTypes as [AnyObject]))
         sections.append(("Categories",categories as [AnyObject]))
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -70,9 +77,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             filters["categories"] = selectedCategories as AnyObject?
         }
         
-//        var selectedSort = String()
-        
-        
         delegate?.filtersViewController?(filtersViewController: self, didUpdateFilters: filters)
 
     }
@@ -93,6 +97,32 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->UITableViewCell{
+        
+        switch indexPath.section {
+        case 0: // Deals
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath as IndexPath) as! SwitchCell
+            cell.switchLabel.text = "Deals"
+            cell.delegate = self
+            cell.onSwitch.isOn = dealsIsOn
+            return cell
+        case 1: // Distance
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MiscCell", for: indexPath as IndexPath) as! MiscCell
+            cell.label.text = "Distance"
+            return cell
+        case 2: // Sort
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MiscCell", for: indexPath as IndexPath) as! MiscCell
+            cell.label.text = "Sort By"
+            return cell
+        case 3: // Categories
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath as IndexPath) as! SwitchCell
+            cell.switchLabel.text = categories[indexPath.row]["name"]
+            cell.delegate = self
+            cell.onSwitch.isOn = switchStates[indexPath.row] ?? false
+            return cell
+        default:
+            break
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath as IndexPath) as! SwitchCell
         
         print("indexPath section: \(indexPath.section)")
