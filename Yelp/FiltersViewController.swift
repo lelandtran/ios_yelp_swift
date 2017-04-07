@@ -76,6 +76,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         if selectedCategories.count > 0 {
             filters["categories"] = selectedCategories as AnyObject?
         }
+        filters["deals"] = dealsIsOn as AnyObject?
         
         delegate?.filtersViewController?(filtersViewController: self, didUpdateFilters: filters)
 
@@ -90,7 +91,19 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].1.count
+        let numberOfRows = sections[section].1.count
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return showAllDistances ? numberOfRows : 1
+        case 2:
+            return showAllSorts ? numberOfRows : 1
+        case 3:
+            return numberOfRows
+        default:
+            return numberOfRows
+        }
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->UITableViewCell{
@@ -127,6 +140,20 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath as IndexPath) as! SwitchCell
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            print("showAllDistances: \(showAllDistances)")
+            showAllDistances = !showAllDistances
+            tableView.reloadData()
+        }
+        else {
+            print("showAllSorts: \(showAllSorts)")
+            showAllSorts = !showAllSorts
+            tableView.reloadData()
+        }
+        
     }
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {

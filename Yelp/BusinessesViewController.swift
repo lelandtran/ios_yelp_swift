@@ -113,10 +113,11 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
         let categories = filters["categories"] as? [String]
+        let dealsIsOn = filters["deals"] as? Bool
 //        let sort = filters["sort"] as? String
 //        let deals = filters["deals"] as? Bool
 //        let distance = filters["distance"] as? Double
-        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: nil, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: dealsIsOn, completion: { (businesses: [Business]?, error: Error?) -> Void in
                 self.businesses = businesses
                 self.filteredData = self.businesses
                 self.tableView.reloadData()
