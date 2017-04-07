@@ -28,8 +28,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var dealsIsOn = false
     var selectedDistance : Double?
     var selectedSort = YelpSortMode.bestMatched
-    
-//    var dealsIsOn : Bool
+    var showAllDistances = false
+    var showAllSorts = false
     
     
     override func viewDidLoad() {
@@ -42,7 +42,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         categories = yelpCategories()
         let sortTypes = ["Best Matched","Distance","Highest Rated"]
         let distances = [nil, 0.3, 1, 5, 10, 20]
-        sections.append(("Deals",["Deals" as AnyObject]))
+        sections.append(("",["Deals" as AnyObject]))
         sections.append(("Distances",distances as [AnyObject]))
         sections.append(("Sort By",sortTypes as [AnyObject]))
         sections.append(("Categories",categories as [AnyObject]))
@@ -127,49 +127,17 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath as IndexPath) as! SwitchCell
             return cell
         }
-        /*
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath as IndexPath) as! SwitchCell
-        
-        print("indexPath section: \(indexPath.section)")
-        
-        let sectionIndex = indexPath.section
-        let sectionHeader = sections[sectionIndex].0
-        
-        switch sectionHeader {
-        case "Categories":
-            cell.switchLabel.text = categories[indexPath.row]["name"]
-            break
-        case "Sort":
-            print("indexPath.row: \(indexPath.row)")
-            print("sections[\(sectionIndex)].1[\(indexPath.row)]: \(sections[sectionIndex].1[indexPath.row])")
-            cell.switchLabel.text = sections[sectionIndex].1[indexPath.row] as? String
-            break
-        case "Distances":
-            print("sections[\(sectionIndex)].1: \(sections[sectionIndex].1)")
-            print("sections[\(sectionIndex)].1[\(indexPath.row)]: \(sections[sectionIndex].1[indexPath.row])")
-            if let label = sections[sectionIndex].1[indexPath.row] as? Double {
-                cell.switchLabel.text = "\(label) mi"
-            }
-            else {
-                cell.switchLabel.text = "Auto"
-            }
-            break
-        case "Deals":
-            cell.switchLabel.text = "Deals"
-        default: break
-        }
-        
-        
-        cell.delegate = self
-        cell.onSwitch.isOn = switchStates[indexPath.row] ?? false
-        return cell
-        */
     }
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPath(for: switchCell)!
-        
-        switchStates[indexPath.row] = value
+        if indexPath.section == 0 {
+            dealsIsOn = value
+        }
+        else if indexPath.section == 3 {
+            switchStates[indexPath.row] = value
+            
+        }
     }
     
     

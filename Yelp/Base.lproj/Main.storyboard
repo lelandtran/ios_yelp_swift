@@ -30,7 +30,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SXs-Pl-eDZ" id="5fO-SM-2qx">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="179"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZjK-32-FIR">
@@ -168,22 +168,22 @@
                                         <rect key="frame" x="0.0" y="56" width="320" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ju8-tY-S3F" id="S4Z-py-cvX">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offering A Deal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTT-hI-KyC">
-                                                    <rect key="frame" x="8" y="17" width="117" height="21"/>
+                                                    <rect key="frame" x="8" y="26" width="117" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AzI-gh-eWd">
-                                                    <rect key="frame" x="263" y="12" width="51" height="31"/>
+                                                    <rect key="frame" x="263" y="21" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="tTT-hI-KyC" firstAttribute="leading" secondItem="S4Z-py-cvX" secondAttribute="leading" constant="8" id="B9T-vH-3rc"/>
-                                                <constraint firstItem="tTT-hI-KyC" firstAttribute="top" secondItem="S4Z-py-cvX" secondAttribute="top" constant="17" id="BLV-ts-fn8"/>
+                                                <constraint firstItem="tTT-hI-KyC" firstAttribute="top" secondItem="S4Z-py-cvX" secondAttribute="top" constant="26" id="BLV-ts-fn8"/>
                                                 <constraint firstAttribute="trailing" secondItem="AzI-gh-eWd" secondAttribute="trailing" constant="8" id="FB1-TF-wHZ"/>
                                                 <constraint firstItem="AzI-gh-eWd" firstAttribute="centerY" secondItem="tTT-hI-KyC" secondAttribute="centerY" id="hDR-Hx-ceA"/>
                                             </constraints>
@@ -197,7 +197,7 @@
                                         <rect key="frame" x="0.0" y="127" width="320" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dfp-CD-hek" id="zAK-XZ-0qp">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0au-Ef-nwh">
