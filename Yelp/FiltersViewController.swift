@@ -82,23 +82,22 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
-        print("number of sections: \(sections.count)")
         return sections.count
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        print("name of section: \(sections[section].0)")
         return sections[section].0
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("number of rows in section: [\(sections[section].1.count)]")
         return sections[section].1.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->UITableViewCell{
         
-        switch indexPath.section {
+        let sectionIndex = indexPath.section
+        
+        switch sectionIndex {
         case 0: // Deals
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath as IndexPath) as! SwitchCell
             cell.switchLabel.text = "Deals"
@@ -107,11 +106,16 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             return cell
         case 1: // Distance
             let cell = tableView.dequeueReusableCell(withIdentifier: "MiscCell", for: indexPath as IndexPath) as! MiscCell
-            cell.label.text = "Distance"
+            if let label = sections[sectionIndex].1[indexPath.row] as? Double {
+                cell.label.text = "\(label) mi"
+            }
+            else {
+                cell.label.text = "Auto"
+            }
             return cell
         case 2: // Sort
             let cell = tableView.dequeueReusableCell(withIdentifier: "MiscCell", for: indexPath as IndexPath) as! MiscCell
-            cell.label.text = "Sort By"
+            cell.label.text = sections[sectionIndex].1[indexPath.row] as? String
             return cell
         case 3: // Categories
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath as IndexPath) as! SwitchCell
@@ -119,10 +123,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.delegate = self
             cell.onSwitch.isOn = switchStates[indexPath.row] ?? false
             return cell
-        default:
-            break
+        default: // this shouldn't happen
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath as IndexPath) as! SwitchCell
+            return cell
         }
-        
+        /*
         let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath as IndexPath) as! SwitchCell
         
         print("indexPath section: \(indexPath.section)")
@@ -158,7 +163,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.delegate = self
         cell.onSwitch.isOn = switchStates[indexPath.row] ?? false
         return cell
-        
+        */
     }
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
