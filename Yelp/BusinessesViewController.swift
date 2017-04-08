@@ -93,10 +93,21 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchBar.showsCancelButton = true
         filteredData = searchText.isEmpty ? businesses : businesses.filter { (item: Business) -> Bool in
             return item.name?.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
         }
         tableView.reloadData()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
     }
     
     
