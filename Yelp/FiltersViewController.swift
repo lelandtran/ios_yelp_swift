@@ -78,6 +78,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         filters["deals"] = dealsIsOn as AnyObject?
         filters["distance"] = selectedDistance as AnyObject?
+        filters["sortMode"] = selectedSort as AnyObject?
         
         delegate?.filtersViewController?(filtersViewController: self, didUpdateFilters: filters)
 

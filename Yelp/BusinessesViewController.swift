@@ -42,6 +42,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
                 for business in businesses {
                     print(business.name!)
                     print(business.address!)
+                    print(business.distance!)
                 }
                 self.businesses = businesses
                 self.filteredData = self.businesses
@@ -114,12 +115,19 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
         let categories = filters["categories"] as? [String]
         let dealsIsOn = filters["deals"] as? Bool
-//        let sort = filters["sort"] as? String
-//        let deals = filters["deals"] as? Bool
-//        let distance = filters["distance"] as? Double
-        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: dealsIsOn, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        let sortMode = filters["sortMode"] as? YelpSortMode
+        let distance = filters["distance"] as? Double
+        print("distance: \(distance)")
+        Business.searchWithTerm(term: "Restaurants", sort: sortMode, categories: categories, deals: dealsIsOn, completion: {
+                (businesses: [Business]?, error: Error?) -> Void in
                 self.businesses = businesses
-                self.filteredData = self.businesses
+                self.filteredData = distance == nil ? self.businesses :self.businesses?.filter {
+                    (item: Business) -> Bool in
+                    let strArr = item.distance?.components(separatedBy: " ")
+                    let dist = Double(strArr![0])
+                    return dist! < distance!
+                }
+                print("filteredData: \(self.filteredData)")
                 self.tableView.reloadData()
         })
     }
