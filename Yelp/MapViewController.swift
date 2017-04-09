@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, FiltersViewControllerDelegate {
 
     var businesses : [Business]!
     
@@ -18,6 +18,36 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        loadMapView()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
+        let categories = filters["categories"] as? [String]
+        let dealsIsOn = filters["deals"] as? Bool
+        let sortMode = filters["sortMode"] as? YelpSortMode
+        let distance = filters["distance"] as? Double
+        print("distance: \(distance)")
+        print("clearing annotations")
+        clearAnnotations(from: mapView)
+        Business.searchWithTerm(term: "Restaurants", sort: sortMode, categories: categories, deals: dealsIsOn, completion: {
+            (businesses: [Business]?, error: Error?) -> Void in
+            self.businesses = distance == nil ? businesses :businesses?.filter {
+                (item: Business) -> Bool in
+                let strArr = item.distance?.components(separatedBy: " ")
+                let dist = Double(strArr![0])
+                return dist! < distance!
+            }
+            print("filteredData: \(self.businesses)")
+            self.loadMapView()
+        })
+    }
+    
+    func loadMapView(){
         let centerLocation = CLLocation(latitude: 37.783, longitude: -122.4167)
         goToLocation(centerLocation)
         addAnnotationByCoordinate(at: centerLocation.coordinate, title: "This is the center")
@@ -25,11 +55,14 @@ class MapViewController: UIViewController {
             addAnnotationByAddress(at: business.address!, title: business.name!)
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func clearAnnotations(from map: MKMapView){
+        for annotation in map.annotations {
+            print("removing annotation: \(annotation.title!)")
+            map.removeAnnotation(annotation)
+        }
     }
+
     
     func goToLocation(_ location: CLLocation){
         let span = MKCoordinateSpanMake(0.1, 0.1)
@@ -61,14 +94,22 @@ class MapViewController: UIViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let navigationController = segue.destination as! UINavigationController
+        if let filtersViewController = navigationController.topViewController as? FiltersViewController {
+            filtersViewController.delegate = self
+        } else if let businessesViewController = navigationController.topViewController as? BusinessesViewController {
+            businessesViewController.businesses = businesses
+            businessesViewController.filteredData = businesses
+            businessesViewController.tableView.reloadData()
+        }
     }
-    */
+    
 
 }
