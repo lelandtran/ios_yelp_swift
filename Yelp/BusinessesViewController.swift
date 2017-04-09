@@ -106,7 +106,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
-        searchBar.text = ""
+//        searchBar.text = ""
         searchBar.resignFirstResponder()
     }
     
@@ -117,9 +117,13 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         // Pass the selected object to the new view controller.
         
         let navigationConroller = segue.destination as! UINavigationController
-        let filtersViewController = navigationConroller.topViewController as! FiltersViewController
+        if let filtersViewController = navigationConroller.topViewController as? FiltersViewController{
         
-        filtersViewController.delegate = self
+            filtersViewController.delegate = self
+        }
+        else if let mapViewController = navigationConroller.topViewController as? MapViewController {
+            // set delegate here
+        }
         
     }
     

@@ -30,7 +30,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SXs-Pl-eDZ" id="5fO-SM-2qx">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="179.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZjK-32-FIR">
@@ -139,6 +139,11 @@
                                 <segue destination="TrD-Ul-wgt" kind="presentation" id="Tpg-6j-9Bm"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="Aqp-Ps-nD8">
+                            <connections>
+                                <segue destination="XIu-uk-5C6" kind="show" id="cxq-Qj-k0J"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="SXy-9l-KPP" id="jwT-tq-haO"/>
@@ -147,6 +152,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fgb-4b-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2499.375" y="357.04225352112678"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="ZOe-E2-c7W">
+            <objects>
+                <viewController id="4hb-aB-m4h" customClass="MapViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NQe-TW-Hep"/>
+                        <viewControllerLayoutGuide type="bottom" id="J4f-WX-W3Z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Pw5-2H-1tw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="MOA-Ap-7pp">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="J4f-WX-W3Z" firstAttribute="top" secondItem="MOA-Ap-7pp" secondAttribute="bottom" id="7of-lN-ZGD"/>
+                            <constraint firstItem="MOA-Ap-7pp" firstAttribute="leading" secondItem="Pw5-2H-1tw" secondAttribute="leading" id="BZ1-Jb-TQJ"/>
+                            <constraint firstItem="MOA-Ap-7pp" firstAttribute="top" secondItem="Pw5-2H-1tw" secondAttribute="top" id="FLs-up-XLm"/>
+                            <constraint firstAttribute="trailing" secondItem="MOA-Ap-7pp" secondAttribute="trailing" id="zU0-fO-wma"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="n1P-mX-61v">
+                        <barButtonItem key="leftBarButtonItem" title="Filter" id="Fco-en-aZ2"/>
+                        <barButtonItem key="rightBarButtonItem" title="List" id="Gtr-Mw-mpb">
+                            <connections>
+                                <segue destination="2xI-yr-O5N" kind="show" id="aYa-8G-GLR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="MOA-Ap-7pp" id="1QN-GS-uO3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hhp-5A-za9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2503" y="1110"/>
         </scene>
         <!--Filters-->
         <scene sceneID="4X1-Cl-eP4">
@@ -165,10 +210,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" rowHeight="71" id="Ju8-tY-S3F" customClass="SwitchCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="320" height="71"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="320" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ju8-tY-S3F" id="S4Z-py-cvX">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="70.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offering A Deal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTT-hI-KyC">
@@ -194,10 +239,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MiscCell" id="Dfp-CD-hek" customClass="MiscCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="127" width="320" height="71"/>
+                                        <rect key="frame" x="0.0" y="126.5" width="320" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dfp-CD-hek" id="zAK-XZ-0qp">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="70.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0au-Ef-nwh">
@@ -295,5 +340,26 @@
             </objects>
             <point key="canvasLocation" x="3219" y="356"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="An9-cs-Uyn">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XIu-uk-5C6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="unu-DB-FWp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="4hb-aB-m4h" kind="relationship" relationship="rootViewController" id="hgy-oV-UkJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HDM-r4-1Ja" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1779" y="1110"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="aYa-8G-GLR"/>
+    </inferredMetricsTieBreakers>
 </document>
