@@ -181,7 +181,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Filter" id="Fco-en-aZ2"/>
                         <barButtonItem key="rightBarButtonItem" title="List" id="Gtr-Mw-mpb">
                             <connections>
-                                <segue destination="2xI-yr-O5N" kind="show" id="aYa-8G-GLR"/>
+                                <segue destination="nhs-kG-L8j" kind="show" id="tIF-sK-cSj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -359,7 +359,4 @@
             <point key="canvasLocation" x="1779" y="1110"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="aYa-8G-GLR"/>
-    </inferredMetricsTieBreakers>
 </document>

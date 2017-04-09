@@ -122,7 +122,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             filtersViewController.delegate = self
         }
         else if let mapViewController = navigationConroller.topViewController as? MapViewController {
-            // set delegate here
+            mapViewController.businesses = self.filteredData
         }
         
     }
